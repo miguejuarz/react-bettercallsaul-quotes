@@ -7,3 +7,7 @@ y que las muestre aleatoriamente</p>
 
 <h2>Capturas de pantalla</h2>
 <img src="public/screenshot/saul2.png">
+
+<h3>SI te sale este error</h3>
+<img src="public/screenshot/saul1.png">
+la que puedes hacer es descargar esta extension de chrome [![Allow CORS]](https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf)
