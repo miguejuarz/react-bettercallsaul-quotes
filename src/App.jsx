@@ -3,35 +3,43 @@ import "./App.css";
 import Quote from "./components/Quote";
 import { Spinner } from "./components/Spinner";
 
-const initialQuote = {
-  text: "Aqui va la frase",
-  author: "Saul Goodman",
-};
+import Error from "./pages/Error";
+
+// const initialQuote = {
+//   text: "Aqui va la frase",
+//   author: "Saul Goodman",
+// };
 
 function App() {
-  const [quote, setQuote] = useState(initialQuote);
-
+  const [quote, setQuote] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const updateQuote = async () => {
     setLoading(true);
-    const url = 'https://bettercallsaul-api.onrender.com/quotes/random'
+    const url = "https://bettercallsaul-api.onrender.com/api/quotes";
     const res = await fetch(url);
     const data = await res.json();
-
-    const {quote: text, author  } = data;
+    console.log(data);
+ 
+    if (Array.isArray(data) && data.length > 0) {
+      const randomIndex = Math.floor(Math.random() * data.length);
+      const { quote, author } = data[randomIndex];
+      console.log(quote, author);
 
     setQuote({
-      text,
-      author
-    })
-    setLoading(false)
-  }
+      quote,
+      author,
+    });
+    }
+    setLoading(false);
+  };
 
   useEffect(() => {
-   updateQuote();
-  }, [])
-  
+    updateQuote();
+  }, []);
+
+
+  console.log(quote);
 
   return (
     <div className="App">
@@ -40,15 +48,10 @@ function App() {
         alt="logo"
         className="img"
       />
-      
+
       <br />
-      <button onClick={() => updateQuote()} > Get Another </button>
-      <div>
-        { loading ? <Spinner /> : <Quote quote={quote}/> }
-      </div>
-      
-    
-      
+      <button onClick={() => updateQuote()}> Get Another </button>
+      <div>{loading ? <Spinner /> : <Quote quote={quote} />}</div>
     </div>
   );
 }
